@@ -1,8 +1,5 @@
 package ichigo.util;
 
-import java.net.*;
-import java.io.*;
-import java.util.*;
 
 public class CoordinateUtil {
 

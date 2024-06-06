@@ -1,7 +1,6 @@
 package ichigo.web;
 
-import ichigo.util.*;
-import java.lang.reflect.*;
+import ichigo.util.LogUtil;
 
 public class TestControl {
 
@@ -9,29 +8,47 @@ public class TestControl {
   public String test() {
     try {
       IchigoSession threadSession = IchigoSession.getThreadSession();
-      return threadSession.getStringFile("html/test.html");
-      /*
-      LogUtil.log("---------------------- TestControl　呼ばれる");
-      StringBuilder sb = new StringBuilder();
-      Command req = threadSession.getRequest();
-      String hellowWorld = HtmlUtil.escapeCRLF(req.getCommandString());
+      IchigoBunch ib = new IchigoBunch("table_test");
+
+      ib.add("id");
+      ib.put("id", "TEXT PRIMARY KEY");
+      ib.add("name");
+      ib.createTable();
+      ib.clear();
+      ib.put("id", "001");
+      ib.put("name", "久冨善雄");
+      ib.insert();
+      ib.put("id", "002");
+      ib.put("name", "久冨善雄");
+      ib.insert();
+      ib.put("id", "003");
+      ib.put("name", "久冨善雄");
+      ib.insert();
+      ib.put("id", "004");
+      ib.put("name", "久冨善雄");
+      ib.insert();
+      ib.clear();
+ 
+      IchigoBunch update = new IchigoBunch("table_test");
+      update.put("id", "001");
+      update.put("name", "名前更新テスト");
+      update.updateWithKey("id");
+
+      update.put("id", "002");
+      update.deleteWithKey("id");
+
+      ib.selectSql("select * from table_test");
+
+      LogUtil.log("結果　　　：" + ib);
+      LogUtil.log("結果配列　：" + ib.toArrayString());
+      LogUtil.log("結果マップ：" + ib.toMapString());
+
+      String t = threadSession.getStringFile("html/test.html");
+      IchigoBunch temp = new IchigoBunch(t);
+      temp.put("test", "置き換えテスト");
+      return temp.replaceTemp();
 
 
-      String html1 = """
-      <!doctype html>
-      <html lang='ja'>
-      <meta charset='utf-8' />
-      <meta
-      <head>
-      </head>
-        <body>
-      """;
-      String html2 = """
-        </body>
-      </html>
-      """;
-      return html1 + hellowWorld + html2;
-      */
     } catch (Exception e) {
       e.printStackTrace();
       return e.getMessage();

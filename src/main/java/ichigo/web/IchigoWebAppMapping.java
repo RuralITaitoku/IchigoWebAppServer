@@ -73,8 +73,8 @@ public class IchigoWebAppMapping {
       try {
           jarFile = new JarFile(new File(fileName));
 
-          for (Enumeration e = jarFile.entries(); e.hasMoreElements();) {
-              JarEntry entry = (JarEntry)e.nextElement();
+          for (Enumeration<JarEntry> e = jarFile.entries(); e.hasMoreElements();) {
+              JarEntry entry = e.nextElement();
               // 結果を出力
               String name = entry.getName();
               if (name.indexOf("$") >= 0) continue;
@@ -98,6 +98,7 @@ public class IchigoWebAppMapping {
   public void initMapping(String className) {
     try {
       ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+      @SuppressWarnings("rawtypes")
       Class cls = classLoader.loadClass(className);
 
       Method[] mm = cls.getMethods();

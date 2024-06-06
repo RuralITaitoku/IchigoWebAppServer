@@ -2,22 +2,14 @@ package ichigo.web;
 
 import ichigo.util.*;
 import java.net.*;
-import java.util.*;
-import java.util.jar.*;
 import java.io.*;
 import java.awt.*;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 
 public class IchigoWebAppServer {
 
-  private static final String PACKAGE_SEPARATOR = ".";
+//  private static final String PACKAGE_SEPARATOR = ".";
 
-  private static final String CLASS_SUFFIX = ".class";
+//  private static final String CLASS_SUFFIX = ".class";
 
   private IchigoWebAppMapping webAppMap;
 
@@ -37,11 +29,12 @@ public class IchigoWebAppServer {
 
   public void start() {
 
+    ServerSocket server = null;
 
     try {
-      this.getResourcesList(null);
+      //this.getResourcesList(null);
 
-      ServerSocket server = new ServerSocket(portNo);
+      server = new ServerSocket(portNo);
       LogUtil.log("サーバーが起動しました。");
       LogUtil.log("ポート番号        ：" + portNo);
 
@@ -54,6 +47,13 @@ public class IchigoWebAppServer {
       }
     } catch (Exception e) {
       e.printStackTrace();
+    }
+    if (server != null) {
+      try {
+        server.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   }
   public void openApp() {
@@ -70,7 +70,6 @@ public class IchigoWebAppServer {
   public void recv(Socket socket) {
     LogUtil.red("受信" + socket);
     IchigoSession threadSession = IchigoSession.getThreadSession();
-    String sessionKey = null;
     try {
       ByteArrayOutputStream lineBytes = new ByteArrayOutputStream();
       ByteArrayOutputStream reqBytes = new ByteArrayOutputStream();
@@ -138,7 +137,7 @@ public class IchigoWebAppServer {
     }
   }
 
-
+/* 
   public ArrayList<String> getResourcesList(String packageName) throws Exception {
       ArrayList<String> classNameList = new ArrayList<String>();
 
@@ -190,7 +189,7 @@ public class IchigoWebAppServer {
       return classNameList;
 
   }
-
+*/
 
 
 }

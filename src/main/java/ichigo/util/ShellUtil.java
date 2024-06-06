@@ -1,13 +1,11 @@
 package ichigo.util;
 
-import java.net.*;
 import java.io.*;
 import java.util.*;
 
 public class ShellUtil {
 
 	private String[] command;
-	private String grep;
 	private List<String> result;
 
 	public ShellUtil(String[] c) {

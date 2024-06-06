@@ -1,7 +1,6 @@
 package ichigo.util;
 
 import java.net.*;
-import java.io.*;
 import java.util.*;
 
 public class Command {
@@ -42,6 +41,7 @@ public class Command {
 			}
 			lines.add(line);
 		}
+		scanner.close();
 		this.init(lines);
 	}
 
@@ -54,6 +54,7 @@ public class Command {
 				while(scanner.hasNext()) {
 					this.cmdList.add(scanner.next());
 				}
+				scanner.close();
 			}
 			StringBuilder sb = new StringBuilder();
 			for (int i = 1; i < lines.size(); i++) {

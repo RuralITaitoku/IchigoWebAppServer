@@ -1,6 +1,5 @@
 package ichigo.util;
 
-import java.io.*;
 import java.util.*;
 
 public class HtmlUtil {
@@ -13,6 +12,7 @@ public class HtmlUtil {
       sb.append(line);
       sb.append("<br />\r\n");
     }
+    scan.close();
     return sb.toString();
   }
 

@@ -77,4 +77,11 @@ public class LogUtil {
     return "";
   }
 
+  public static void log(Exception e) {
+    info (e.getMessage());
+    for (StackTraceElement element : e.getStackTrace()) {
+      info(element.toString());     
+    }
+  }
+
 }
